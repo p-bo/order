@@ -1795,7 +1795,7 @@ class PluginOrderOrder extends CommonDBTM {
                                                                               $data["plugin_order_ordertaxes_id"]));
 
             //if state is cancel do not decremente total already use
-            if ($data['plugin_order_orderstates_id'] < 5) {
+            if ($data['plugin_order_orderstates_id'] != 6) {
              $total +=  $prices["priceHT"];
             }
 
