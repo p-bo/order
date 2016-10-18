@@ -561,6 +561,12 @@ class PluginOrderOrder extends CommonDBTM {
          unset($input['id']);
          unset($input['withtemplate']);
       } else {
+
+         if (!isset ($input["payment_locations_id"]) || $input["payment_locations_id"] == '' || $input["payment_locations_id"] == 0) {
+             Session::addMessageAfterRedirect(__("Please select an invoice location", "order"),false,ERROR);
+            return array ();
+         }
+
          if (!isset ($input["num_order"]) || $input["num_order"] == '') {
             Session::addMessageAfterRedirect(__("An order number is mandatory !", "order"), false, ERROR);
             return array ();
