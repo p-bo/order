@@ -64,6 +64,10 @@ $go_autoloader->register();
 function plugin_init_order() {
    global $PLUGIN_HOOKS, $CFG_GLPI, $ORDER_TYPES;
 
+   if (isset($CFG_GLPI['layout_excluded_pages'])) { // to be compatible with glpi 0.85
+      array_push($CFG_GLPI['layout_excluded_pages'], "bill.form.php");
+   }
+
    Plugin::registerClass('PluginOrderProfile');
    $PLUGIN_HOOKS['csrf_compliant']['order'] = true;
 
