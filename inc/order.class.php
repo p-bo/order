@@ -1585,7 +1585,7 @@ class PluginOrderOrder extends CommonDBTM {
             $location = new Location();
             if ($location->getFromDB($this->fields["locations_id"])) {
                $values['title_delivery_address']   = __("Delivery address", "order");
-               $values['comment_delivery_address'] = $location->fields['comment'];
+               $values['comment_delivery_address'] = $location->fields['name']."\n".$location->fields['comment'];
             }
 
             if ($town) {
