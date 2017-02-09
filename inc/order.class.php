@@ -1583,9 +1583,9 @@ class PluginOrderOrder extends CommonDBTM {
             }
 
             $location = new Location();
-            if ($location->getFromDB($this->fields["locations_id"])) {
-               $values['title_delivery_address']   = __("Delivery address", "order");
-               $values['comment_delivery_address'] = $location->fields['name']."\n".$location->fields['comment'];
+            if ($location->getFromDB($this->fields["payment_locations_id"])) {
+               $values['title_delivery_address']   = __("Invoice location", "order");
+               $values['comment_delivery_address'] = $location->fields['completename']."\n".$location->fields['comment'];
             }
 
             if ($town) {
@@ -1689,6 +1689,7 @@ class PluginOrderOrder extends CommonDBTM {
 
             $name = Dropdown::getDropdownName("glpi_plugin_order_orderpayments", $this->fields["plugin_order_orderpayments_id"]);
 
+
             $values['title_totalht']      = __("Price tax free", "order");
             $values['totalht']            = Html::clean(Html::formatNumber($prices['priceHT']));
             $values['title_port']         = __("Price tax free with postage", "order");
@@ -1788,6 +1789,7 @@ class PluginOrderOrder extends CommonDBTM {
          echo "<th>" . __("Entity") . "</th>";
          echo "<th>" . __("Price tax free", "order") . "</th>";
          echo "<th>" . __("Price ATI", "order") . "</th>";
+          echo "<th>" . __("Postage", "order") . "</th>";
          echo "</tr>";
 
          $total = 0;
@@ -1804,6 +1806,8 @@ class PluginOrderOrder extends CommonDBTM {
             if ($data['plugin_order_orderstates_id'] != 6) {
              $total +=  $prices["priceHT"];
             }
+
+
 
             $link   = Toolbox::getItemTypeFormURL(__CLASS__);
 
@@ -1838,9 +1842,16 @@ class PluginOrderOrder extends CommonDBTM {
             echo Html::formatNumber($prices["priceTTC"] + $postagewithTVA);
             echo "</td>";
 
+
+            echo "<td>";
+            echo Html::formatNumber($data["port_price"]);
+            echo "</td>";
+
             echo "</tr>";
 
          }
+
+         $total = $total -$data["port_price"];
          echo "</table></div>";
 
          echo "<br><div class='center'>";
