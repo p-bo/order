@@ -186,9 +186,18 @@ class PluginOrderOrder_Item extends CommonDBRelation {
                               $item->input[$field] = $value[$field];
                            }
                         }
-                        if ($field_set && !isset($item->input['_no_warning'])) {
-                           Session::addMessageAfterRedirect(__("Some fields cannont be modified because they belong to an order", "order"), true, ERROR);
+
+                        if(isset($_POST['locations_id'])){
+                           $order->fields["payment_locations_id"] = $_POST['locations_id'];
+                           $order->update($order->fields);
+
+                        }else{
+                           if ($field_set && !isset($item->input['_no_warning'])) {
+                              Session::addMessageAfterRedirect(__("Some fields cannont be modified because they belong to an order", "order"), true, ERROR);
+                           }
                         }
+
+
                         break;
                      case 'Contract':
                         $orderitem->getFromDB($detail_id);
@@ -945,6 +954,12 @@ class PluginOrderOrder_Item extends CommonDBRelation {
             echo "<tr align='center'><td colspan='2' class='tab_bg_2'>" .
                   __("Delivery date") . "</td>";
             echo "<td colspan='2' class='tab_bg_2'>" . Html::convDate($link["delivery_date"]) . "</td></tr>";
+
+
+
+            echo "<tr align='center'><td colspan='2' class='tab_bg_2'>" .
+                  __("Invoice location", "order") . "</td>";
+            echo "<td colspan='2' class='tab_bg_2'>" .Location::dropdown(array('display' => false,'value'  => $order->fields['payment_locations_id'])). "</td></tr>";
 
          }
       }
