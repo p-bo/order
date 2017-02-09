@@ -819,28 +819,62 @@ class PluginOrderOrder extends CommonDBTM {
       // ... Else, if no budget was selected and a payment_locations_id is set,
       //     display locations list with location's name pre-selected from payment_locations_id ...
       // ... Else, display locations list with EMPTY_VALUE pre-selected
+      // 
+      
+
       if (isset($this->fields['payment_locations_id']) && $this->fields['payment_locations_id'] !== '' &&
                 $this->fields['payment_locations_id'] !== '0') {
 
-         Location::Dropdown(array(
+
+         if (isset($this->fields['budgets_id']) && $this->fields['budgets_id'] !== '' &&
+                $this->fields['budgets_id'] > 0){
+
+         $budget = new Budget();
+         $budget->getFromDB($this->fields['budgets_id']);
+
+            if(isset($budget->fields["locations_id"]) && ($budget->fields["locations_id"] == $this->fields['payment_locations_id']) ){
+
+               echo Dropdown::getDropdownName('glpi_locations',$this->fields['payment_locations_id']);
+               
+            }else{
+
+               Location::Dropdown(array(
+                  'name'   => "payment_locations_id",
+                  'value'  => $this->fields['payment_locations_id'],
+                  'entity' => $this->fields['entities_id'],
+                  'rand'   => $rand,
+               ));
+
+            }
+
+
+         
+
+         }else{
+                     Location::Dropdown(array(
             'name'   => "payment_locations_id",
             'value'  => $this->fields['payment_locations_id'],
             'entity' => $this->fields['entities_id'],
             'rand'   => $rand,
          ));
+         }
+
+
+
       } elseif (isset($this->fields['budgets_id']) && $this->fields['budgets_id'] !== '' &&
                 $this->fields['budgets_id'] > 0) {
 
          $budget = new Budget();
          $budget->getFromDB($this->fields['budgets_id']);
          // Get selected budget's location
-         $locations_id = $budget->fields["locations_id"];
-         Location::Dropdown(array(
-            'name'   => "payment_locations_id",
-            'value'  => $locations_id,
-            'entity' => $this->fields['entities_id'],
-            'rand'   => $rand,
-         ));
+
+            $locations_id = $budget->fields["locations_id"];
+            Location::Dropdown(array(
+               'name'   => "payment_locations_id",
+               'value'  => $locations_id,
+               'entity' => $this->fields['entities_id'],
+               'rand'   => $rand,
+            ));
 
       } else {
         Location::Dropdown(array(
