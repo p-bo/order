@@ -181,6 +181,26 @@ function plugin_order_getAddSearchOptions($itemtype) {
          $sopt[3161]['forcegroupby']  =  true;
          $sopt[3161]['datatype']      = 'itemlink';
          $sopt[3161]['itemlink_type'] = 'PluginOrderOrder';
+
+
+         $sopt[3162]['table']         = 'glpi_locations';
+         $sopt[3162]['field']         = 'name';
+         $sopt[3162]['linkfield']     = 'payment_locations_id';
+         $sopt[3162]['name']          = __("Invoice location", "order");
+         $sopt[3162]['forcegroupby']  =  true;
+         $sopt[3162]['datatype']      = 'itemlink';
+         $sopt[3162]['itemlink_type'] = 'GlpiLocation';
+               $sopt[3162]['joinparams']        = array('beforejoin'
+                                       => array('table'
+                                                 => 'glpi_plugin_order_orders',
+                                                'joinparams'
+                                                 => array('jointype'  => 'standard','linkfield'  => 'payment_locations_id')));
+
+
+
+
+
+
       }
    }
    return $sopt;
@@ -210,6 +230,7 @@ function plugin_order_addLeftJoin($type,$ref_table,$new_table,$linkfield,
                      "AND `glpi_plugin_order_orders_items`.`itemtype` = '$type') ";
          $out.= " LEFT JOIN `glpi_plugin_order_orders` " .
                   "ON (`glpi_plugin_order_orders`.`id` = `glpi_plugin_order_orders_items`.`plugin_order_orders_id`) ";
+
          return $out;
          break;
       case "glpi_budgets" : // From order list
