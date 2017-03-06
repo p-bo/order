@@ -804,7 +804,7 @@ class PluginOrderOrder extends CommonDBTM {
          ));
       }
       else {
-         echo Dropdown::getDropdownName("glpi_locations", $this->fields["locations_id"]);
+         echo Dropdown::getDropdownName("glpi_locations", $this->fields["payment_address_id"]);
       }
       echo '</td>';
       // Payment location (production site)
@@ -1591,7 +1591,7 @@ class PluginOrderOrder extends CommonDBTM {
             $town   = '';
 
             if ($this->fields["entities_id"] != 0) {
-               $name_entity = $entity->fields["name"];
+               $name_entity = $entity->fields["completename"]."\n".$entity->fields['comment'];
             } else {
                $name_entity = __("Root entity");
             }
