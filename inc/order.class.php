@@ -1597,15 +1597,18 @@ class PluginOrderOrder extends CommonDBTM {
             }
 
 
-            $values['entity_name'] = $name_entity;
-            if ($entity->getFromDB($this->fields["entities_id"])) {
-               $town = $entity->fields["town"];
+       
 
-               $values['entity_address']  = $entity->fields["address"];
-               $values['entity_postcode'] = $entity->fields["postcode"];
-               $values['entity_town']     = $entity->fields["town"];
-               $values['entity_country']  = $entity->fields["country"];
-            }
+               $locationPaymentAdress = new Location();
+               if ($locationPaymentAdress->getFromDB($this->fields["payment_address_id"])) {
+                  $values['entity_name'] = $locationPaymentAdress->fields['completename'];
+                  $values['entity_address'] = $locationPaymentAdress->fields['comment'];
+                  $values['entity_postcode'] = "";
+                  $values['entity_town']     = "";
+                  $values['entity_country']  = "";
+               }
+
+ 
 
             $supplier = new Supplier();
             if ($supplier->getFromDB($this->fields["suppliers_id"])) {
