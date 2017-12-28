@@ -1064,7 +1064,7 @@ class PluginOrderLink extends CommonDBChild {
          $result = $this->createLinkWithItem($values["id"], $newID, $values["itemtype"],
                                              $values["plugin_order_orders_id"], $entity, $templateID,
                                              false, false);
-         
+
          //-------------Generate components --------------------------------------//
          foreach (Item_Devices::getItemAffinities($item->getType()) as $link_type) {
             $item_device = new $link_type();

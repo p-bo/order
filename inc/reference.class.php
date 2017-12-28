@@ -229,7 +229,7 @@ class PluginOrderReference extends CommonDBTM {
       $tab[35]['table']          = 'glpi_items_devicememories';
       $tab[35]['field']          = 'size';
       $tab[35]['unit']           = __('Mio');
-      $tab[35]['name']           = sprintf(__('%1$s (%2$s)'),__('Memory'),__('Mio'));
+      $tab[35]['name']           = sprintf(__('%1$s (%2$s)'), __('Memory'), __('Mio'));
       $tab[35]['forcegroupby']   = true;
       $tab[35]['usehaving']      = true;
       $tab[35]['datatype']       = 'number';
@@ -238,7 +238,6 @@ class PluginOrderReference extends CommonDBTM {
       $tab[35]['joinparams']     = $items_device_joinparams;
       $tab[35]['computation']    = "(SUM(TABLE.`size`) / COUNT(TABLE.`id`))
                                     * COUNT(DISTINCT TABLE.`id`)";
-
 
       $tab[11]['table']          = 'glpi_devicenetworkcards';
       $tab[11]['field']          = 'designation';
@@ -288,7 +287,6 @@ class PluginOrderReference extends CommonDBTM {
                                           => array('table'      => 'glpi_items_devicemotherboards',
                                                    'joinparams' => $items_device_joinparams));
 
-
       $tab[15]['table']          = 'glpi_deviceharddrives';
       $tab[15]['field']          = 'designation';
       $tab[15]['name']           = __('Hard drive type');
@@ -334,7 +332,6 @@ class PluginOrderReference extends CommonDBTM {
       $tab[95]['joinparams']     = array('beforejoin'
                                           => array('table'      => 'glpi_items_devicepcis',
                                                    'joinparams' => $items_device_joinparams));
-
 
       return $tab;
    }
@@ -403,7 +400,7 @@ class PluginOrderReference extends CommonDBTM {
       if (!$this->isNewItem()) {
          $this->addDefaultFormTab($ong);
          $this->addStandardTab('PluginOrderItem_Devices', $ong, $options);
-         $this->addStandardTab('PluginOrderReference_Supplier', $ong,$options);
+         $this->addStandardTab('PluginOrderReference_Supplier', $ong, $options);
          $this->addStandardTab('Document_Item', $ong, $options);
          $this->addStandardTab('Note', $ong, $options);
          $this->addStandardTab('Log', $ong, $options);

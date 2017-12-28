@@ -35,8 +35,8 @@ if (!defined('GLPI_ROOT')) {
 
 class PluginOrderItem_Devices extends Item_Devices {
    public static $rightname = 'plugin_order_order';
-    
-   
+
+
    static function displayTabContentForItem(CommonGLPI $item, $tabnum = 1, $withtemplate = 0) {
 
       self::showForItem($item, $withtemplate);
@@ -45,7 +45,7 @@ class PluginOrderItem_Devices extends Item_Devices {
 
    static function showForItem(CommonGLPI $item, $withtemplate=0) {
       global $CFG_GLPI;
-      
+
       $is_device = ($item instanceof CommonDevice);
 
       $ID = $item->getField('id');
@@ -170,6 +170,6 @@ class PluginOrderItem_Devices extends Item_Devices {
       // Force disable selected items
       $_SESSION['glpimassiveactionselected'] = array();
    }
-   
+
 
 }
