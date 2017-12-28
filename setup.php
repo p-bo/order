@@ -137,10 +137,11 @@ function plugin_init_order() {
       Plugin::registerClass('PluginOrderProfile', ['addtabon' => ['Profile']]);
 
       array_push($CFG_GLPI["itemdevices_types"], 'PluginOrderReference');
-      array_push($CFG_GLPI["itemdevicesmemory_types"], 'PluginOrderReference');
+      array_push($CFG_GLPI["itemdevicememory_types"], 'PluginOrderReference');
       array_push($CFG_GLPI["itemdevicepowersupply_types"], 'PluginOrderReference');
       array_push($CFG_GLPI["itemdevicenetworkcard_types"], 'PluginOrderReference');
       array_push($CFG_GLPI["itemdevices_itemaffinity"], 'PluginOrderReference');
+      
       $PLUGIN_HOOKS['infocom']['order'] = ['PluginOrderOrder_Item', 'showForInfocom'];
       Plugin::registerClass('PluginOrderOrder_Item',
                             ['notificationtemplates_types' => true]);
