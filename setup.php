@@ -136,6 +136,12 @@ function plugin_init_order() {
       Plugin::registerClass('PluginOrderReference', ['document_types' => true]);
       Plugin::registerClass('PluginOrderProfile', ['addtabon' => ['Profile']]);
 
+      array_push($CFG_GLPI["itemdevices_types"], 'PluginOrderReference');
+      array_push($CFG_GLPI["itemdevicesmemory_types"], 'PluginOrderReference');
+      array_push($CFG_GLPI["itemdevicepowersupply_types"], 'PluginOrderReference');
+      array_push($CFG_GLPI["itemdevicenetworkcard_types"], 'PluginOrderReference');
+      array_push($CFG_GLPI["itemdevices_itemaffinity"], 'PluginOrderReference');
+
       $values['notificationtemplates_types'] = true;
       //If the new infocom display hook (introduced in 9.1) is available, use it !
       if (method_exists('Infocom', 'addPluginInfos')) {
